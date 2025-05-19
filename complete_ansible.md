@@ -21,15 +21,50 @@
     else
     local -> cat ~/.ssh/id_rsa.pub
     remote -> vim ~/.ssh/authorized_keys
- 5. Passwordless Authentication
+ 4. Passwordless Authentication
     ```
     ssh [target_ip]
- 6. Come back and access inventory in ansible server
+ 5. Come back and access inventory in ansible server
     ```
     Default directory for inventory file - /etc/ansible/inventory      
     cat /etc/ansible/inventory
-    nano /etc/ansible/inventory
+ 6. Open the inventory file and add the ip addresses of target_server for configuration management
+    ```
+    vim /etc/ansible/inventory
+ 7. Create sample file in the target servers
+    ```
+    ansible -i inventory all -m "shell" -a "touch devopsclass"
+    ansible -i inventory all -m "shell" -a "nproc"
+    ansible -i inventory all -m "shell" -a "df"
+    ls -ltr
+ 8. Study about ansible modules & Create your first ansible playbook
+    ```
+    vim first-playbook.yml
 
-    
+    ---
+    - name: Install Nginx
+      hosts: all
+      become: true
+
+      tasks:
+        - name: Install Nginx
+          apt:
+            name: nginx
+            state: present
+        - name: Start Nginx
+          service:
+             name: nginx
+             state: started
+ 9. Run your first ansible playbook
+     ```
+     ansible-playbook -i inventory first-playbook.yml
+     check on target server - sudo systemctl status nginx
+     ansible-playbook -vvv -i inventory first-playbook.yml
+ 10. Configure Ansible role
+     ```
+     mkdir second-playbook
+     cd second-playbook/
+     ansible-galaxy role init kubernetes
+     ls -ltr kubernetes/         
     
        
