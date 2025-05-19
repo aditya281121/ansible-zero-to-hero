@@ -65,6 +65,9 @@
      mkdir second-playbook
      cd second-playbook/
      ansible-galaxy role init kubernetes
-     ls -ltr kubernetes/         
+     ls -ltr kubernetes/
+ ## Output 
+  ![Screenshot (144)](https://github.com/user-attachments/assets/ab40d417-d30a-4394-84ac-01a4dc4ed394)
+
     
        
